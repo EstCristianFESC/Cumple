@@ -38,16 +38,9 @@
       color: var(--text-dark);
       overflow-x: hidden;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #feca57 100%);
-      background-size: 400% 400%;
-      animation: gradientShift 15s ease infinite;
+      background-size: 100% 100%;
       min-height: 100vh;
       position: relative;
-    }
-
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
     }
 
     /* Scroll Progress Bar */
@@ -143,18 +136,6 @@
       backdrop-filter: blur(10px);
       border: 1px solid var(--glass-border);
       border-radius: 50px;
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
-      }
-      50% {
-        transform: scale(1.05);
-        box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0);
-      }
     }
 
     .hero h1 {
@@ -165,16 +146,6 @@
       margin-bottom: 1rem;
       line-height: 1;
       text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      animation: titleGlow 3s ease-in-out infinite;
-    }
-
-    @keyframes titleGlow {
-      0%, 100% {
-        text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 40px rgba(255, 255, 255, 0.2);
-      }
-      50% {
-        text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 60px rgba(255, 255, 255, 0.4);
-      }
     }
 
     .hero-subtitle {
@@ -289,10 +260,7 @@
       transform: scale(1);
     }
 
-    /* Parallax Effect */
-    .parallax {
-      transition: transform 0.1s ease-out;
-    }
+
 
     h2 {
       font-family: 'Cormorant Garamond', serif;
@@ -551,8 +519,8 @@
 
   <!-- INFO -->
   <section class="reveal">
-    <h2 class="parallax">Celebremos</h2>
-    <div class="card parallax">
+    <h2>Celebremos</h2>
+    <div class="card">
       <p>
         Este cumpleaños no es cualquiera.<br>
         Es risas, brindis, fotos bonitas<br>
@@ -563,8 +531,8 @@
 
   <!-- DETAILS -->
   <section class="reveal-scale">
-    <h2 class="parallax">Te esperamos</h2>
-    <div class="card parallax">
+    <h2>Te esperamos</h2>
+    <div class="card">
       <div class="detail reveal-left">
         <strong>📍 Lugar</strong>
         <div class="detail-content">Waffit & Brunch</div>
@@ -597,8 +565,8 @@
 
   <!-- ORGANIZAN -->
   <section class="reveal" style="padding-bottom: 5rem;">
-    <h2 class="parallax">Organizan</h2>
-    <div class="card parallax">
+    <h2>Organizan</h2>
+    <div class="card">
       <p>
         Sus amigas 💕<br>
         Las que siempre están,<br>
@@ -637,7 +605,7 @@
 
     // Create Floating Particles
     const particlesContainer = document.getElementById('particles');
-    const particleCount = 30;
+    const particleCount = 12;
 
     for (let i = 0; i < particleCount; i++) {
       const particle = document.createElement('div');
@@ -688,39 +656,7 @@
       revealObserver.observe(element);
     });
 
-    // Parallax Scroll Effect
-    const parallaxElements = document.querySelectorAll('.parallax');
-    let ticking = false;
 
-    function updateParallax() {
-      const scrolled = window.pageYOffset;
-      
-      parallaxElements.forEach((element, index) => {
-        const rect = element.getBoundingClientRect();
-        const elementTop = rect.top + scrolled;
-        const elementHeight = rect.height;
-        const windowHeight = window.innerHeight;
-        
-        // Only apply parallax when element is in viewport
-        if (rect.top < windowHeight && rect.bottom > 0) {
-          const scrollProgress = (scrolled - elementTop + windowHeight) / (windowHeight + elementHeight);
-          const translateY = (scrollProgress - 0.5) * 30; // Adjust multiplier for effect intensity
-          
-          element.style.transform = `translateY(${translateY}px)`;
-        }
-      });
-      
-      ticking = false;
-    }
-
-    function requestParallaxUpdate() {
-      if (!ticking) {
-        window.requestAnimationFrame(updateParallax);
-        ticking = true;
-      }
-    }
-
-    window.addEventListener('scroll', requestParallaxUpdate);
 
     // Smooth Scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -753,17 +689,7 @@
       scrollIndicator.style.cursor = 'pointer';
     }
 
-    // Add scroll-based background gradient shift
-    let lastScrollTop = 0;
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const scrollDirection = scrollTop > lastScrollTop ? 'down' : 'up';
-      lastScrollTop = scrollTop;
-      
-      // Subtle background shift based on scroll
-      const scrollPercentage = (scrollTop / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-      document.body.style.backgroundPosition = `${scrollPercentage}% 50%`;
-    });
+
 
     // Initial call to set progress on page load
     updateScrollProgress();
